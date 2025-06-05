@@ -1,3 +1,4 @@
+//./store/index.ts
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import Map from './features/map';
 import App from './features/app';
@@ -5,6 +6,10 @@ import User from './features/user';
 import SearchParams from './features/searchParams';
 import { polygonApi } from '@api/paths/polygonApi';
 import { userApi } from '@api/paths/userApi';
+//для хранения полигонов
+import polygonsReducer from './polygonsSlice';
+
+
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +19,8 @@ export const store = configureStore({
     searchParams: SearchParams,
     [polygonApi.reducerPath]: polygonApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
+    //для полигонов
+    polygons: polygonsReducer
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware()
@@ -30,3 +37,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
+
+
+
